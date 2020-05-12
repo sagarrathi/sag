@@ -1,0 +1,27 @@
+{% extends  "base.html" %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+<body>
+    
+{% block content %}
+    <h1>{{page.title|richtext}}</h1>
+
+    {% for post in blogpages %}
+        {% with post=post.specific %}
+            
+            <h2><a href="{{post.url}}">{{post.title}}</a></h2>
+            
+            {% image post.main_image fill-160x100%}    
+            
+            {{post.intro}}
+            
+            {{post.body|richtext}}
+        
+        {% endwith %}
+    {% endfor%}
+    
+{% endblock %}
+
+</body>
+
