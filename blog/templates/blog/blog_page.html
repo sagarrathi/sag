@@ -17,7 +17,7 @@
     {% endfor %}
     
     {% for tag in page.tags.all %}
-        <a href="{% slugurl 'tags' %}?={{ tag }}">{{tag}}</a>
+        <a href="{% slugurl 'tags' %}?tag={{ tag }}">{{tag}}</a>
     {% endfor%}
     <p><a href="{{ page.get_parent.url }}">Return To Blog</a></p>
 {% endblock content %}
