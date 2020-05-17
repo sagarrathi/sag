@@ -1,19 +1,27 @@
+# For categories and other models
 from django.db import models
 
+# For importing major class types
 from wagtail.core.models import Page
 from wagtail.core.models import Orderable
 from taggit.models import TaggedItemBase
 
-from modelcluster.fields import ParentalKey
-from modelcluster.contrib.taggit import ClusterTaggableManager
-
+# For Fields And Admin Input
 from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
+#For Tags
+from modelcluster.fields import ParentalKey
+from modelcluster.contrib.taggit import ClusterTaggableManager
+
+# For Categories 
+from wagtail.snippets.models import register_snippet
+
+# For  Searching
 from wagtail.search import index
 
-
+####################### Imports Ends Here ###############
 
 
 class BlogIndexPage(Page):
@@ -29,12 +37,14 @@ class BlogIndexPage(Page):
 
         return context
 
+
 class BlogPageTag(TaggedItemBase):
     content_object=ParentalKey(
         'BlogPage',
         related_name='tagged_items',
         on_delete=models.CASCADE
     )
+
 
 class BlogPage(Page):
     date=models.DateField("Post Date")
@@ -83,6 +93,7 @@ class BlogPageGalleryImage(Orderable):
     ]
 
 
+
 class BlogTagIndexPage(Page):
     def get_context(self, request):
         tag=request.GET.get('tag')
@@ -92,3 +103,24 @@ class BlogTagIndexPage(Page):
         context['blogpages']=blogpages
 
         return context
+
+@register_snippet
+class BlogCategory(models.Model):
+    name=models.CharField(max_length=255)
+    icon=models.ForeignKey(
+        'wagtailimages.Image',null=True, blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+')
+
+    # Not using content panels as we do need admin promote tab
+    # and other battries
+    panels=[
+        FieldPanel('name'),
+        ImageChooserPanel('icon'),
+    ]
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name_plural='blog_categories'
