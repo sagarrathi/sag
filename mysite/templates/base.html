@@ -1,40 +1,59 @@
-{% load static wagtailuserbar %}
 
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}
-                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-            {% endblock %}
-            {% block title_suffix %}
-                {% with self.get_site.site_name as site_name %}
-                    {% if site_name %}- {{ site_name }}{% endif %}
-                {% endwith %}
-            {% endblock %}
-        </title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!DOCTYPE HTML>
+<!--
+	Striped by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/mysite.css' %}">
+{% load static%}
 
-        {% block extra_css %}
-            {# Override this in templates to add extra stylesheets #}
-        {% endblock %}
+<html>
+	<head>
+		<title>Welcome To Data Science Monk</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static "css/main.css" %}" />
     </head>
+    
+	<body class="is-preload">
 
-    <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
+		<!-- Content -->
+			<div id="content">
+				<div class="inner">
 
-        {% block content %}{% endblock %}
+                    <!-- Post -->
+                        {% block content  %}
+                        {% endblock content%}
+						
 
-        {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/mysite.js' %}"></script>
+					<!-- Pagination -->
+						<div class="pagination">
+							<!--<a href="#" class="button previous">Previous Page</a>-->
+							<div class="pages">
+								<a href="#" class="active">1</a>
+								<a href="#">2</a>
+								<a href="#">3</a>
+								<a href="#">4</a>
+								<span>&hellip;</span>
+								<a href="#">20</a>
+							</div>
+							<a href="#" class="button next">Next Page</a>
+						</div>
 
-        {% block extra_js %}
-            {# Override this in templates to add extra javascript #}
-        {% endblock %}
-    </body>
+				</div>
+			</div>
+
+        <!-- Sidebar -->
+            {% include "sidebar.html" %}
+			
+
+		<!-- Scripts -->
+			<script src="{% static "js/jquery.min.js" %}"></script>
+			<script src="{% static "js/browser.min.js" %}"></script>
+			<script src="{% static "js/breakpoints.min.js" %}"></script>
+			<script src="{% static "js/util.js" %}"></script>
+			<script src="{% static "js/main.js" %}"></script>
+            
+	</body>
 </html>
