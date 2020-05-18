@@ -44,18 +44,28 @@
         </ul>
     </div>
     
-    <p> Posted In:
-    {% for cat in page.categories.all%}
-        <a href=#>{{cat}}</a>
-    {% endfor%}</p>
     
-    <a href="#"  class="image featured">{% image page.main_image width-1000 %}</a>
-    <p>{{page.body|richtext}}</p>
     <p>
-        {% for tag in page.tags.all %}
-            Tags: <a href="{% slugurl 'tags' %}?tag={{ tag }}">{{tag}}</a>
+    {% if page.categories.all|length %}
+        Posted In:
+        {% for cat in page.categories.all%}
+            <a href="{% slugurl 'categories' %}?category={{ cat }}">{{cat}}</a>
         {% endfor%}
-        </p>
+    {% endif %}
+    </p>
+
+    <a href="#"  class="image featured">{% image page.main_image width-1000 %}</a>
+    
+    <p>{{page.body|richtext}}</p>
+    
+    <p>
+    {% if page.tags.all|length %}
+        Tags:
+        {% for tag in page.tags.all %}
+            <a href="{% slugurl 'tags' %}?tag={{ tag }}">{{tag}}</a>
+        {% endfor%}
+    {% endif %}
+    </p>
 
     <p><a href="{{ page.get_parent.url }}">Return To Blog</a></p>
 

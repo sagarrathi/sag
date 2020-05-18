@@ -26,13 +26,16 @@ from modelcluster.fields import ParentalManyToManyField
 # For forms
 from django import forms
 
+# For Routable Index Page
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+
 # For  Searching
 from wagtail.search import index
 
 ####################### Imports Ends Here ###############
 
 
-class BlogIndexPage(Page):
+class BlogIndexPage(RoutablePageMixin,Page):
     intro=RichTextField(blank=True)
     content_panels=Page.content_panels+[
         FieldPanel('intro', classname='full')
@@ -42,10 +45,14 @@ class BlogIndexPage(Page):
         context=super().get_context(request)
         blogpages=self.get_children().live().order_by('-first_published_at')
         context['blogpages']=blogpages
+        context['blog_index_page']=self
 
         return context
 
+    def get_posts(self):
+        return self.get_children().live().order_by('-first_published_at')
 
+    
 class BlogPageTag(TaggedItemBase):
     content_object=ParentalKey(
         'BlogPage',
@@ -108,6 +115,21 @@ class BlogTagIndexPage(Page):
     def get_context(self, request):
         tag=request.GET.get('tag')
         blogpages=BlogPage.objects.filter(tags__name=tag)
+        
+        blogpages=blogpages.order_by('-first_published_at')
+        
+        context=super().get_context(request)
+        context['blogpages']=blogpages
+
+        return context
+
+
+class BlogCategoryIndexPage(Page):
+    def get_context(self, request):
+        category=request.GET.get('category')
+        blogpages=BlogPage.objects.filter(categories__name=category)
+
+        blogpages=blogpages.order_by('-first_published_at')
 
         context=super().get_context(request)
         context['blogpages']=blogpages
@@ -134,3 +156,4 @@ class BlogCategory(models.Model):
     
     class Meta:
         verbose_name_plural='blog categories'
+
