@@ -49,7 +49,7 @@
     {% if page.categories.all|length %}
         Posted In:
         {% for cat in page.categories.all%}
-            <a href="{% slugurl 'categories' %}?category={{ cat }}">{{cat}}</a>
+            <a href="{{ page.get_parent.url }}category/{{ cat }}/">{{cat}}</a>
         {% endfor%}
     {% endif %}
     </p>
@@ -62,7 +62,7 @@
     {% if page.tags.all|length %}
         Tags:
         {% for tag in page.tags.all %}
-            <a href="{% slugurl 'tags' %}?tag={{ tag }}">{{tag}}</a>
+            <a href="{{ page.get_parent.url }}tag/{{ tag }}/">{{tag}}</a>
         {% endfor%}
     {% endif %}
     </p>

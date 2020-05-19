@@ -1,5 +1,7 @@
 # For categories and other models
 from django.db import models
+from django.shortcuts import render
+
 
 # For importing major class types
 from wagtail.core.models import Page
@@ -17,6 +19,9 @@ from taggit.models import TaggedItemBase
 from modelcluster.contrib.taggit import ClusterTaggableManager
 # For Keys:
 from modelcluster.fields import ParentalKey
+# For listing TAG objects
+from taggit.models import Tag
+from django.contrib.contenttypes.models import ContentType
 
 
 # For Categories adding custom tags
@@ -41,19 +46,55 @@ class BlogIndexPage(RoutablePageMixin,Page):
         FieldPanel('intro', classname='full')
     ]
 
-    def get_context(self, request):
-        context=super().get_context(request)
+    def get_context(self, request,*args, **kwargs):
+        context=super().get_context(request,*args, **kwargs)
         blogpages=self.get_children().live().order_by('-first_published_at')
         context['blogpages']=blogpages
         return context
 
+    @route(r"^category/(?P<cat_name>[-\w]*)/$", name="category_view")
+    def category_view(self, request, cat_name):
+        context =self.get_context(request)
+        try:
+            category=BlogCategory.objects.get(name=cat_name)
+            message="Showing Result for category: "+str(category)
+            blogpages=BlogPage.objects.filter(categories__name=category)
+            blogpages=blogpages.order_by('-first_published_at')
+
+        except:
+            category=None
+            message="No such Category exist."
+            blogpages=None
+
+        context['message']=message
+        context['blogpages']=blogpages
+        return  render(request, "blog/blog_index_page.html", context)
+
+    @route(r"^tag/(?P<tag_name>[-\w]*)/$", name="tag_view")
+    def tag_view(self, request, tag_name):
+        context =self.get_context(request)
+
+        tags=Tag.objects.all().values_list('name', flat=True)
+        tags=list(set(list(tags)))
+            
+        if tag_name in tags:
+            message="Showing Result for tag: "+str(tag_name)
+            blogpages=BlogPage.objects.filter(tags__name=tag_name)
+            blogpages=blogpages.order_by('-first_published_at')
+            
+        else:
+            message="No such tag exist."
+            blogpages=None
+        
+        context['message']=message
+        context['blogpages']=blogpages
+        return  render(request, "blog/blog_index_page.html", context)
     
-    
-    
+
 class BlogPageTag(TaggedItemBase):
     content_object=ParentalKey(
         'BlogPage',
-        related_name='tagged_items',
+        related_name='taggeditems',
         on_delete=models.CASCADE
     )
 
@@ -106,32 +147,6 @@ class BlogPageGalleryImage(Orderable):
             FieldPanel('caption')
     ]
 
-
-"""
-class BlogTagIndexPage(Page):
-    def get_context(self, request):
-        tag=request.GET.get('tag')
-        blogpages=BlogPage.objects.filter(tags__name=tag)
-        
-        blogpages=blogpages.order_by('-first_published_at')
-        
-        context=super().get_context(request)
-        context['blogpages']=blogpages
-
-        return context
-"""
-
-class BlogCategoryIndexPage(Page):
-    def get_context(self, request):
-        category=request.GET.get('category')
-        blogpages=BlogPage.objects.filter(categories__name=category)
-
-        blogpages=blogpages.order_by('-first_published_at')
-
-        context=super().get_context(request)
-        context['blogpages']=blogpages
-
-        return context
 
 @register_snippet
 class BlogCategory(models.Model):
