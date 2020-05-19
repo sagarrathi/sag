@@ -1,12 +1,17 @@
 {% extends  "base.html" %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
-    
+
+{% load el_pagination_tags %}
+
 {% block content %}
+{% paginate 1 blogpages %}
+
     <h2>{{message}}</h2>
     {% for post in blogpages %}
         {% with post=post.specific %}
         
+
         <article class="box post post-excerpt">
             <header>
             <!--
@@ -50,5 +55,31 @@
 
         {% endwith %}
     {% endfor%}
-    
+
+
+
+<!-- Pagination -->
+    <div class="pagination">
+        {% get_pages %}
+        
+        {% if pages.previous %}
+            <a href="{{pages.previous.path}}" class="button next">Previous Page</a>
+        {% endif%}
+
+        <div class="pages">
+            {% for p in pages %}
+                {% if p.is_current %}
+                    <a  href={{p.path}} class="active">{{p.number}}</a>
+                {% else %}
+                    <a  href={{p.path}}>{{p.number}}</a>
+                {% endif %}
+            {% endfor%}
+            <!-- <span>&hellip;</span> -->
+            <!-- <a href="{{ pages.last.path }}">{{ pages|length }}</a> -->
+        </div>
+        {% if pages.next %}
+            <a href="{{pages.next.path}}" class="button next">Next Page</a>
+        {% endif%}
+    </div>
+
 {% endblock %}

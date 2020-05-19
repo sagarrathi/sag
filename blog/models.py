@@ -130,6 +130,27 @@ class BlogPage(Page):
         InlinePanel('gallery_images', label="Gallery Images")
     ]
 
+    def get_context(self, request,*args, **kwargs):
+        context=super().get_context(request,*args, **kwargs)
+        blogpages=self.get_siblings()
+        context['page']=self
+        return context
+
+    def prev_page(self):
+        if self.get_prev_sibling():
+            return self.get_prev_sibling().url
+        else:
+            return None
+            # self.get_siblings().first().url
+            
+    def next_page(self):
+        if self.get_next_sibling():
+            return self.get_next_sibling().url
+        else:
+            return None 
+            # self.get_siblings().last().url
+
+    
 
 class BlogPageGalleryImage(Orderable):
     page=ParentalKey(BlogPage, 

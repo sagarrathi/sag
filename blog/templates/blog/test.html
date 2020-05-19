@@ -1,0 +1,24 @@
+
+<!-- Pagination -->
+<div class="pagination">
+    {% get_pages %}
+    
+    {% if pages.previous %}
+        <a href="{{pages.previous.path}}" class="button next">Previous Page</a>
+    {% endif%}
+
+    <div class="pages">
+        {% for p in pages %}
+            {% if p.is_current %}
+                <a  href={{p.path}} class="active">{{p.number}}</a>
+            {% else %}
+                <a  href={{p.path}}>{{p.number}}</a>
+            {% endif %}
+        {% endfor%}
+        <!-- <span>&hellip;</span> -->
+        <!-- <a href="{{ pages.last.path }}">{{ pages|length }}</a> -->
+    </div>
+    {% if pages.next %}
+        <a href="{{pages.next.path}}" class="button next">Next Page</a>
+    {% endif%}
+</div>

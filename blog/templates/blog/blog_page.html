@@ -2,6 +2,8 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
+{% load el_pagination_tags %}
+
 
 {% block content %}
 
@@ -52,23 +54,24 @@
             <a href="{{ page.get_parent.url }}category/{{ cat }}/">{{cat}}</a>
         {% endfor%}
     {% endif %}
-    </p>
 
+    {% if page.tags.all|length %}
+            Tags:
+            {% for tag in page.tags.all %}
+                <a href="{{ page.get_parent.url }}tag/{{ tag }}/">{{tag}}</a>
+            {% endfor%}
+        {% endif %}
+    </p>
+    
     <a href="#"  class="image featured">{% image page.main_image width-1000 %}</a>
     
     <p>{{page.body|richtext}}</p>
     
-    <p>
-    {% if page.tags.all|length %}
-        Tags:
-        {% for tag in page.tags.all %}
-            <a href="{{ page.get_parent.url }}tag/{{ tag }}/">{{tag}}</a>
-        {% endfor%}
-    {% endif %}
-    </p>
+    
 
-    <p><a href="{{ page.get_parent.url }}">Return To Blog</a></p>
+    <a href="{{ page.get_parent.url }}" class="button next">Return To Blog</a>
+
 
 </article>
-    
+
 {% endblock content %}

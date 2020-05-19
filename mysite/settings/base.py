@@ -29,7 +29,8 @@ INSTALLED_APPS = [
     'blog',
 
     'wagtail.contrib.routable_page',
-    
+    'el_pagination',
+
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.embeds',
@@ -163,3 +164,7 @@ WAGTAIL_SITE_NAME = "mysite"
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
+
+
+# Pagination
+EL_PAGINATION_USE_NEXT_PREVIOUS_LINKS = True
