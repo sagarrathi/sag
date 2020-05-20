@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     'wagtail.contrib.routable_page',
     'el_pagination',
+    
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -168,3 +169,17 @@ BASE_URL = 'http://example.com'
 
 # Pagination
 EL_PAGINATION_USE_NEXT_PREVIOUS_LINKS = True
+
+#Search
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        # 'BACKEND': 'wagtail.search.backends.elasticsearch7',
+        'BACKEND': 'wagtail.search.backends.db',
+        # 'URLS': ['http://127.0.0.1:9200'],
+        'INDEX': 'blog',
+        # 'TIMEOUT': 5,
+        'AUTO_UPDATE': True,
+        'ATOMIC_REBUILD': True,       
+
+    }
+}

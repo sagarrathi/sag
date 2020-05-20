@@ -1,3 +1,3 @@
 from django.shortcuts import render
+from blog.models import BlogPage
 
-# Create your views here.

@@ -36,7 +36,8 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 
 # For  Searching
 from wagtail.search import index
-
+from wagtail.search.models import Query
+    
 ####################### Imports Ends Here ###############
 
 
@@ -90,6 +91,8 @@ class BlogIndexPage(RoutablePageMixin,Page):
         context['blogpages']=blogpages
         return  render(request, "blog/blog_index_page.html", context)
     
+    
+   
 
 class BlogPageTag(TaggedItemBase):
     content_object=ParentalKey(
@@ -115,8 +118,10 @@ class BlogPage(Page):
 
 
     search_fields=Page.search_fields+[
-        index.SearchField('intro'),
-        index.SearchField('body')
+        index.SearchField('intro', partial_match=True),
+        index.SearchField('body',partial_match=True),
+        index.FilterField('categories'),
+        index.FilterField('date'),
     ]
 
     content_panels = Page.content_panels + [

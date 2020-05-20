@@ -1,3 +1,5 @@
+{% load wagtailcore_tags %}
+
 <div id="sidebar">
 
     <!-- Logo -->
@@ -14,12 +16,11 @@
         </nav>
 
     <!-- Search -->
-        <section class="box search">
-            <form method="post" action="#">
-                <input type="text" class="text" name="search" placeholder="Search" />
-            </form>
-        </section>
-
+    <form action="{% url 'search' %}" method="get">
+        <input type="text" name="query" value="{{ search_query }}">
+        <input type="submit" value="Search">
+    </form>
+    
     <!-- Text -->
         <section class="box text-style1">
             <div class="inner">

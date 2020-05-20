@@ -4,6 +4,9 @@ from django.template.response import TemplateResponse
 from wagtail.core.models import Page
 from wagtail.search.models import Query
 
+from blog.models import BlogPage
+
+from django.db.models import Q
 
 def search(request):
     search_query = request.GET.get('query', None)
@@ -11,9 +14,9 @@ def search(request):
 
     # Search
     if search_query:
-        search_results = Page.objects.live().search(search_query)
+        # search_results = Page.objects.live().search(search_query)
+        search_results = BlogPage.objects.filter(Q(body__contains=search_query)|Q(title__contains=search_query))
         query = Query.get(search_query)
-
         # Record hit
         query.add_hit()
     else:
@@ -28,7 +31,9 @@ def search(request):
     except EmptyPage:
         search_results = paginator.page(paginator.num_pages)
 
-    return TemplateResponse(request, 'search/search.html', {
-        'search_query': search_query,
-        'search_results': search_results,
+    message="Showing results for: " +str(search_query)
+    return TemplateResponse(request, 'blog/blog_index_page.html', {
+        'message': message,
+        'blogpages': search_results,
     })
+
