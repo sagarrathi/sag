@@ -32,7 +32,7 @@ def search(request):
         search_results = paginator.page(paginator.num_pages)
 
     message="Showing results for: " +str(search_query)
-    return TemplateResponse(request, 'blog/blog_index_page.html', {
+    return TemplateResponse(request, 'search/search.html', {
         'message': message,
         'blogpages': search_results,
     })
