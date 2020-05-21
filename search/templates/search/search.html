@@ -18,9 +18,9 @@
     </br>
     {% for post in blogpages %}
     {% with post=post.specific %}
-    <hr>
-
-        {% image post.main_image fill-100x100 align="left"%}
+        <hr>
+        <div class="search_list">
+        {% image post.main_image fill-150x150 align="left" id="searchimage" %}
         <strong><a href="{{post.url}}">{{post.title}}</a></strong>
         </br>
         <span class="date">
@@ -30,7 +30,10 @@
             <span class="year">, {{post.date|date:"Y"}}</span>
         </span>
         <p style="color:black">{{post.intro}}</p>
+        <br>
+        </div>
         {% endwith %}
+       
     {% endfor%}
     <hr>
 {% endblock %}
