@@ -31,7 +31,7 @@ def search(request):
     except EmptyPage:
         search_results = paginator.page(paginator.num_pages)
 
-    message="Showing results for: " +str(search_query)
+    message="Got "+str(len(search_results))+" results for search term: " +str(search_query)
     return TemplateResponse(request, 'search/search.html', {
         'message': message,
         'blogpages': search_results,
