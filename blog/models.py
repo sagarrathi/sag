@@ -50,7 +50,10 @@ class BlogIndexPage(RoutablePageMixin,Page):
     def get_context(self, request,*args, **kwargs):
         context=super().get_context(request,*args, **kwargs)
         blogpages=self.get_children().live().order_by('-first_published_at')
+
+        
         context['blogpages']=blogpages
+        
         return context
 
     @route(r"^category/(?P<cat_name>[-\w]*)/$", name="category_view")
@@ -91,6 +94,16 @@ class BlogIndexPage(RoutablePageMixin,Page):
         context['blogpages']=blogpages
         return  render(request, "blog/blog_index_page.html", context)
     
+    # @route(r"^archives/$", name="archive_view")
+    # def archive_view(self, request, tag_name):
+    #     context =self.get_context(request)
+
+    #     tags=Tag.objects.all().values_list('name', flat=True)
+    #     tags=list(set(list(tags)))
+    
+    #     context['messahe']="Recent Tags"
+    #     context['tags']=tags
+    #     return  render(request, "home/sidebar.html", context)
     
    
 
