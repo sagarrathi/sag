@@ -94,16 +94,16 @@ class BlogIndexPage(RoutablePageMixin,Page):
         context['blogpages']=blogpages
         return  render(request, "blog/blog_index_page.html", context)
     
-    # @route(r"^archives/$", name="archive_view")
-    # def archive_view(self, request, tag_name):
-    #     context =self.get_context(request)
+    @route(r"^archives/", name="archive_view")
+    def archive_view(self, request):
+        context =self.get_context(request)
 
-    #     tags=Tag.objects.all().values_list('name', flat=True)
-    #     tags=list(set(list(tags)))
+        tags=Tag.objects.all().values_list('name', flat=True)
+        tags=list(set(list(tags)))
     
-    #     context['messahe']="Recent Tags"
-    #     context['tags']=tags
-    #     return  render(request, "home/sidebar.html", context)
+        context['message']="Archives Page"
+        context['tags']=tags
+        return  render(request, "blog/archives.html", context)
     
    
 
