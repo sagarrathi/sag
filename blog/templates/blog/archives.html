@@ -5,7 +5,52 @@
 {% load wagtailimages_tags %}
 
 {% block content%}
-    {% for t in tag_dict %}
-    {t.title}
+    <!-- Date -->
+    <br><h2 id=message>By Date:</h2><br>
+    {% regroup blogpages by date|date:"Y" as year_list %}
+    {% for year in year_list %}
+        <strong> Year:{{year.grouper}}</strong><br>
+        {% regroup year.list by date|date:"F" as month_list %}
+        {% for month in month_list %}
+            <strong>&emsp;{{month.grouper}}</strong><br>
+            {% for p in month.list %}
+            &emsp;&emsp;<a href={{p.url}}>{{p}}</a><br>
+            {%endfor%}
+        {% endfor%}
     {% endfor%}
+    
+    <hr>
+
+
+    <!-- Category -->
+    <br><h2 id=message>By Category:</h2><br>
+    {% for category ,pages in cat_dict.items %}
+    {% if pages  %}
+        <strong>&emsp;{{category}}:</strong><br>
+            {% for p in pages %}
+                {% if p %}
+                &emsp;&emsp;<a href={{p.url}}>{{p}}</a><br>
+                {% endif%}        
+            {% endfor %}
+            
+        {% endif %}
+    {%endfor %}
+    <hr>
+
+
+    <!-- Tags -->
+    <br><h2 id=message>By Tags:</h2><br>
+    {% for tags, pages in tag_dict.items %}
+    {% if pages  %}
+        <strong>&emsp;{{tags}}:</strong><br>
+            {% for p in pages %}
+                {% if p %}
+                &emsp;&emsp;<a href={{p.url}}>{{p}}</a><br>
+                {% endif%}        
+            {% endfor %}
+            
+        {% endif %}
+    {%endfor %}
+    <hr>
+
 {% endblock %}
