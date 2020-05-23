@@ -69,6 +69,7 @@ html {
 
 body {
   background-color: #e8e8e8;
+  background-image: url("images/bg02.png");
   display: -moz-flex;
   display: -webkit-flex;
   display: -ms-flex;
@@ -1882,5 +1883,34 @@ ol {
 
 h2#message {
   color: #c94663; }
+
+header#home {
+  border-bottom: dashed 2px #565656;
+  padding-bottom: 10px; }
+
+a.logo {
+  font-size: 3em;
+  font-weight: 700;
+  text-decoration: none;
+  color: #565656;
+  font-weight: 500; }
+
+a.brands {
+  float: right;
+  font-size: 2em;
+  padding-right: 10px;
+  color: #c94663; }
+
+h1#home {
+  font-size: 3.5em;
+  font-weight: 400;
+  color: #565656; }
+
+p#home {
+  font-size: 2em;
+  font-weight: 500; }
+
+section#banner {
+  border-bottom: dashed 2px #565656; }
 
 /*# sourceMappingURL=main.css.map */

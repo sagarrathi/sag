@@ -1522,7 +1522,7 @@
 
 	}
 
-	
+	// Self coded scss
 	.search_list{
 		height: auto !important;
 		min-height: 100%;
@@ -1539,4 +1539,36 @@
 		color: #c94663;
 	}
 
+	//  Home Page
+	header#home{
+		border-bottom: dashed 2px #565656;
+		padding-bottom: 10px;
+	}
+	a.logo{
+		font-size: 3em;
+		font-weight: 700;
+		text-decoration: none;
+		color: #565656;
+		font-weight: 500;
+	}
+	a.brands{
+		float: right;
+		font-size: 2em;
+		padding-right: 10px;
+		color: #c94663;
+	}
 
+	h1#home{
+		font-size: 3.5em;
+		font-weight: 400;
+		color:#565656;
+	}
+
+	p#home{
+		font-size: 2em;
+		font-weight:500;
+	}
+
+	section#banner{
+		border-bottom: dashed 2px #565656;
+	}
