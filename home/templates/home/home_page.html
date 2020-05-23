@@ -1,11 +1,10 @@
-{% extends "base.html" %}
-
+{% extends  "base.html" %}
 {% load wagtailcore_tags %}
-
-{% block body_class%}
-<!-- template-homepage -->
-{% endblock%}
+{% load wagtailimages_tags %}
+{% load static%}
 
 {% block content %}
-{{page.body|richtext}}
+<link rel="stylesheet" href="{% static "css/home.css" %}" />
+
+
 {% endblock %}

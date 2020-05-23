@@ -69,7 +69,6 @@ html {
 
 body {
   background-color: #e8e8e8;
-  background-image: url("images/bg02.png");
   display: -moz-flex;
   display: -webkit-flex;
   display: -ms-flex;
