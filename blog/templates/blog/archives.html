@@ -1,6 +1,11 @@
 {% extends  "base.html" %}
+
+
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
 {% block content%}
+    {% for t in tag_dict %}
+    {t.title}
+    {% endfor%}
 {% endblock %}
