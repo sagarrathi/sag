@@ -38,9 +38,19 @@ from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.search import index
 from wagtail.search.models import Query
     
+# For Stream field
+from wagtail.core.fields import StreamField
+from wagtail.admin.edit_handlers import StreamFieldPanel
+from wagtail.core import blocks
+from blog import blocks as blog_blocks
 ####################### Imports Ends Here ###############
 
 
+class BlogIndexPage(RoutablePageMixin,Page):
+    intro=RichTextField(blank=True)
+    content_panels=Page.content_panels+[
+        FieldPanel('intro', classname='full')
+    ]
 
     def get_context(self, request,*args, **kwargs):
         context=super().get_context(request,*args, **kwargs)
@@ -103,7 +113,11 @@ class BlogPageTag(TaggedItemBase):
 class BlogPage(Page):
     date=models.DateField("Post Date")
     intro=models.CharField(max_length=250)
-    body=RichTextField(blank=True)
+    body=StreamField([
+        ('para', blocks.RichTextBlock(blank=True)),
+        ('code', blog_blocks.CodeBlock())   
+    ])
+
     tags=ClusterTaggableManager(through=BlogPageTag, blank=True)
     categories=ParentalManyToManyField('blog.BlogCategory', blank=True)
 
@@ -129,7 +143,7 @@ class BlogPage(Page):
             FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
             ], heading="Blog Information"),
         FieldPanel('intro'),
-        FieldPanel('body', classname="full"),
+        StreamFieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery Images")
     ]
 
@@ -139,19 +153,7 @@ class BlogPage(Page):
         context['page']=self
         return context
 
-    def prev_page(self):
-        if self.get_prev_sibling():
-            return self.get_prev_sibling().url
-        else:
-            return None
-            # self.get_siblings().first().url
-            
-    def next_page(self):
-        if self.get_next_sibling():
-            return self.get_next_sibling().url
-        else:
-            return None 
-            # self.get_siblings().last().url
+    
 
     
 
