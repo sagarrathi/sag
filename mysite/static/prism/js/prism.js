@@ -2644,6 +2644,10 @@ Prism.hooks.add('wrap', function(env) {
 				linkCopy.textContent = 'Copy';
 			}, 5000);
 		}
+	
+	
+	
 	});
+	
 })();
 
