@@ -6,7 +6,6 @@
 
 
 {% block content %}
-
 <article class="box post post-excerpt">
     <header>
     <!--
@@ -67,7 +66,7 @@
     
     <p>{% include_block page.body %}</p>
     
-    
+    {% include "blog/blocks/disqus.html" %}
 
     <a href="{{ page.get_parent.url }}" class="button next">Return To Blog</a>
 
