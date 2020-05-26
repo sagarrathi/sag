@@ -2,7 +2,5 @@
 {% load static%}
 {% load wagtailcore_tags %}
 <link rel="stylesheet" href="{% static "prism/css/prism.min.css" %}" />
-    <pre class="line-numbers no-whitespace-normalization"><code class="language-{{self.language}}">
-    {{ self.code}}</code></pre>
-
+    <pre class="line-numbers no-whitespace-normalization"><code class="language-{{self.language}}">{{ self.code}}</code></pre>
 <script src="{% static "prism/js/prism.js" %}"></script>
