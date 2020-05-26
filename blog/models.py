@@ -115,7 +115,8 @@ class BlogPage(Page):
     intro=models.CharField(max_length=250)
     body=StreamField([
         ('para', blocks.RichTextBlock(blank=True)),
-        ('code', blog_blocks.CodeBlock())   
+        ('code', blog_blocks.CodeBlock()),
+        ('math', blog_blocks.MathBlock())   
     ])
 
     tags=ClusterTaggableManager(through=BlogPageTag, blank=True)

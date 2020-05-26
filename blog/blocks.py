@@ -35,3 +35,13 @@ class CodeBlock(blocks.StructBlock):
         template="blog/blocks/code_block.html"
         icon="code"
         label="Code" 
+
+
+class MathBlock(blocks.StructBlock):
+      
+    math=blocks.TextBlock()       
+
+    class Meta:
+        template="blog/blocks/math_block.html"
+        icon="math"
+        label="Math" 
