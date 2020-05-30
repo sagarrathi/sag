@@ -9,6 +9,9 @@ from wagtail.documents import urls as wagtaildocs_urls
 from search import views as search_views
 from blog import views as blog_views
 
+# Use this to render tempalate without calling a view
+from django.views.generic import TemplateView 
+
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
 
@@ -17,7 +20,9 @@ urlpatterns = [
 
     url(r'^search/$', search_views.search, name='search'),
     url(r'^blog/archives/$', blog_views.archives, name='archives'),
-    
+
+    url(r'^app/', TemplateView.as_view(template_name='index.html')),
+
 
 ]
 
