@@ -122,6 +122,13 @@ class BlogPage(Page):
     tags=ClusterTaggableManager(through=BlogPageTag, blank=True)
     categories=ParentalManyToManyField('blog.BlogCategory', blank=True)
 
+    appname=models.CharField(max_length=100, blank=True, null=True)
+
+    apps=StreamField([
+        ('inputs',  blog_blocks.InputFileBlock() ),
+        ('outputs', blog_blocks.OutputFileBlock() ),
+    ], null=True)
+
     def main_image(self):
         gallery_item=self.gallery_images.first()
         if gallery_item:
@@ -145,7 +152,11 @@ class BlogPage(Page):
             ], heading="Blog Information"),
         FieldPanel('intro'),
         StreamFieldPanel('body'),
-        InlinePanel('gallery_images', label="Gallery Images")
+        InlinePanel('gallery_images', label="Gallery Images"),
+        MultiFieldPanel([
+            FieldPanel('appname'),
+            StreamFieldPanel('apps'),
+        ])
     ]
 
     def get_context(self, request,*args, **kwargs):

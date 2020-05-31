@@ -45,3 +45,32 @@ class MathBlock(blocks.StructBlock):
         template="blog/blocks/math_block.html"
         icon="math"
         label="Math" 
+
+
+class InputFileBlock(blocks.StructBlock):
+    FILE_TYPE_CHOCIES=[
+        ('Image','image'),
+        ('Text', 'text'),
+        ('Video','video'),
+        ('Excel', 'excel'),
+        ('CSV', 'csv')
+    ] 
+    file_name=blocks.CharBlock(max_length=100)
+    file_type=blocks.ChoiceBlock(choices=FILE_TYPE_CHOCIES)
+    
+    class Meta:
+        icon="form"
+
+class OutputFileBlock(blocks.StructBlock):
+    FILE_TYPE_CHOCIES=[
+        ('Image','image'),
+        ('Text', 'text'),
+        ('Video','video'),
+        ('Excel', 'excel'),
+        ('CSV', 'csv')
+    ] 
+    file_name=blocks.CharBlock(max_length=100)
+    file_type=blocks.ChoiceBlock(choices=FILE_TYPE_CHOCIES)
+    
+    class Meta:
+        icon="view"
