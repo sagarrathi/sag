@@ -55,9 +55,8 @@ class InputFileBlock(blocks.StructBlock):
         ('Excel', 'excel'),
         ('CSV', 'csv')
     ] 
-    file_name=blocks.CharBlock(max_length=100)
     file_type=blocks.ChoiceBlock(choices=FILE_TYPE_CHOCIES)
-    
+    file_id=blocks.IntegerBlock()
     class Meta:
         icon="form"
 
@@ -69,8 +68,8 @@ class OutputFileBlock(blocks.StructBlock):
         ('Excel', 'excel'),
         ('CSV', 'csv')
     ] 
-    file_name=blocks.CharBlock(max_length=100)
     file_type=blocks.ChoiceBlock(choices=FILE_TYPE_CHOCIES)
+    file_id=blocks.IntegerBlock()
     
     class Meta:
         icon="view"
