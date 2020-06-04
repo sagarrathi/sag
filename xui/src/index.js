@@ -1,7 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+function MyApp(){
+  return (
+  <div>
+    <p>
+      this commes forom function
+    </p>
+    <strong>Dekh bhai</strong>
+  </div>
+  )
+} 
+
 ReactDOM.render(
-  <h1>Hi world bro how are you, tutorial</h1>,
-  document.getElementById('root')
-);
+  <MyApp />
+  ,document.getElementById('root')
+)
