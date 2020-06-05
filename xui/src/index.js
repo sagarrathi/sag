@@ -1,18 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-function MyApp(){
-  return (
-  <div>
-    <p>
-      this commes forom function
-    </p>
-    <strong>Dekh bhai</strong>
-  </div>
-  )
-} 
+import App from "./components/App.js"
 
 ReactDOM.render(
-  <MyApp />
+  <App />
   ,document.getElementById('root')
 )
+ 
