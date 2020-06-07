@@ -1,13 +1,16 @@
 import React from 'react';
 
+import Header from "./components/Header"
+import MainContent from "./components/MainContent"
+import Footer from "./components/Footer"
 
 function App(){
   return (
   <div>
-    <p>
-      this commes forom function
-    </p>
-    <strong>Dekh bhai</strong>
+    <Header />
+    <MainContent />
+    <Footer />
+
   </div>
   )
 } 
