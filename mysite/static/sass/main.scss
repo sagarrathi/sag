@@ -1521,7 +1521,7 @@
 			}
 
 	}
-
+//  ////////////////////////////////////////////////////////////
 	// Self coded scss
 	.search_list{
 		height: auto !important;
@@ -1573,4 +1573,7 @@
 		border-bottom: dashed 2px #565656;
 	}
 
+	.formfield * {
+		vertical-align: middle;
+	  }
 	

@@ -47,7 +47,8 @@ class MathBlock(blocks.StructBlock):
         label="Math" 
 
 
-class InputFileBlock(blocks.StructBlock):
+class InputBlock(blocks.StructBlock):
+   
     FILE_TYPE_CHOCIES=[
         ('Image','image'),
         ('Text', 'text'),
@@ -55,12 +56,15 @@ class InputFileBlock(blocks.StructBlock):
         ('Excel', 'excel'),
         ('CSV', 'csv')
     ] 
+    
     file_type=blocks.ChoiceBlock(choices=FILE_TYPE_CHOCIES)
     file_id=blocks.IntegerBlock()
     class Meta:
         icon="form"
 
-class OutputFileBlock(blocks.StructBlock):
+
+class OutputBlock(blocks.StructBlock):
+    
     FILE_TYPE_CHOCIES=[
         ('Image','image'),
         ('Text', 'text'),
@@ -68,8 +72,8 @@ class OutputFileBlock(blocks.StructBlock):
         ('Excel', 'excel'),
         ('CSV', 'csv')
     ] 
+    
     file_type=blocks.ChoiceBlock(choices=FILE_TYPE_CHOCIES)
     file_id=blocks.IntegerBlock()
-    
     class Meta:
-        icon="view"
+        icon="form"

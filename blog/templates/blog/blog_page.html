@@ -65,7 +65,54 @@
     <a href="#"  class="image featured">{% image page.main_image width-1000 %}</a>
     
     <p>{% include_block page.body %}</p>
+
     
+    <h3>Try This App:</h3>
+
+<form action="?" method="get" id={{page.app_name}}>
+{% csrf_token %}
+
+{% for item in page.app_form %}
+    {% if item.block_type == 'input' %}
+        {% if item.value.file_type == 'Image' %}
+            <label for={{item.value.file_type}}{{item.value.file_id}}>{{item.value.file_type}}</label>: 
+            <input type="file" id="image" name="img" accept="image/*">
+        {% endif %}    
+        
+        {% if item.value.file_type == 'Video' %}
+            {{item.value.file_type}}: 
+            <input type="file" id="image" name="img" accept="video/*">
+        {% endif %}    
+        
+        {% if item.value.file_type == 'Text' %}
+        <p class="formfield">
+            {{item.value.file_type}}: 
+            <textarea id="text" name="text" rows="1" cols="30"></textarea>
+        </p>
+        {% endif %}    
+
+        {% if item.value.file_type == 'Excel' %}
+            {{item.value.file_type}}: 
+            <input type="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+        {% endif %}    
+        
+        {% if item.value.file_type == 'CSV' %}
+            {{item.value.file_type}}: 
+            <input type="file" accept=".csv" />
+        {% endif %}    
+
+        {% if item.value.file_type == 'PDF' %}
+            {{item.value.file_type}}: 
+            <input type="file" accept=".pdf" /> 
+        {% endif %}  
+
+    {% endif %}
+<br/>    
+{% endfor%}
+<button type="submit" form={{app_name}} value="Submit">Submit</button>
+</form>
+
+<hr>
     {% include "blog/blocks/disqus.html" %}
 
     <a href="{{ page.get_parent.url }}" class="button next">Return To Blog</a>

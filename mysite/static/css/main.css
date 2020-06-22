@@ -1913,4 +1913,7 @@ p#home {
 section#banner {
   border-bottom: dashed 2px #565656; }
 
+.formfield * {
+  vertical-align: middle; }
+
 /*# sourceMappingURL=main.css.map */
